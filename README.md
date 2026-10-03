@@ -35,7 +35,7 @@ The private implementation has since developed into a React application with a F
 
 ## Project walkthrough
 
-**Screenshot context:** These captures show the standalone React demonstration opened for the portfolio walkthrough on 3 October 2026. It uses mock data. The backend and ESP32 sections below describe the private implementation. The screenshots do not establish a running hardware connection or verified market performance.
+**Note on my demo:** I captured these views from my standalone React demonstration on 3 October 2026 using mock data. I describe the backend and ESP32 work separately below. I still need to validate the complete workflow with physical meter readings and connected settlement records.
 
 ### 1. Producer view: an export commitment and its earnings
 
@@ -70,7 +70,7 @@ The illustrated network supplies **360,000 kWh** against **420,000 kWh** of subs
 
 #### Energy allocation
 
-The expandable preview uses available export divided by subscribed demand. The screenshot's 472 kWh credited total and 857.1 kWh preview belong to separate mock scenarios. They do not represent one reconciled settlement.
+My expandable preview uses available export divided by subscribed demand. Note: I used separate mock scenarios for the 472 kWh credited total and the 857.1 kWh preview. My next step is to derive both from one settlement dataset with explicit periods.
 
 ![Consumer energy allocation](docs/screenshots/energy-allocation.jpg)
 
@@ -127,17 +127,17 @@ All prices below are **prototype assumptions**, not a statement of current elect
 
 The sender calculates power using `P = V × I` and accumulates watt-hours using elapsed time. It posts a JSON reading to the meter API every five seconds. The API accepts the electrical quantities, associates the device with its producer profile and stores a timestamped reading.
 
-The included sketch **generates sample voltage and current values by default**. Its comments suggest replacing those values with INA219 sensor readings. The backend also amplifies small prototype energy values for demonstration. That scaled quantity is separate from a physical Wh-to-kWh conversion.
+Note: my current sketch **generates sample voltage and current values**. I have outlined INA219 integration, but I still need to implement and validate the sensor readings. I also scale small prototype energy values for the demonstration; measured energy must use the physical conversion `kWh = Wh / 1,000`.
 
 ### What I learned
 
 An energy dashboard needs a clear definition behind every number. Generated energy, exported energy, customer credit and billed energy describe different stages of the system. Building SolarMate gave me practice connecting those stages, keeping their units clear and explaining how a change in one quantity affects the bill.
 
-## Current scope
+## My current scope and next steps
 
-The private implementation includes application accounts, API calls, database models and a prototype telemetry path. Local demo data, wallet operations and billing support the presentation workflow. They do not demonstrate an operational energy market, real payment processing or calibrated household metering.
+I have implemented application accounts, API calls, database models and a prototype telemetry path in the private repository. Note: my current demonstration uses local data and simulated wallet operations. I have not validated live payments, calibrated household metering or an operational energy market.
 
-The next engineering step is to reconcile allocation previews and credited totals against a single settlement dataset, then validate the telemetry path with measured sensor data.
+I plan to reconcile allocation previews and credited totals against one settlement dataset, then validate the telemetry path with measured sensor data.
 
 ## Explore the presentation
 

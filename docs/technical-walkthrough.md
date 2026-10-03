@@ -33,7 +33,7 @@ The following file names refer to the private implementation. This public showca
 
 The standalone demonstration uses available export divided by subscribed demand. Package allocation multiplied by that ratio gives a preview, capped at the package amount. A zero-demand guard prevents division by zero. This is proportional allocation, not a network power-flow or dispatch solver.
 
-The captured page has two independent demonstration values: 472 kWh already credited and an 857.1 kWh preview based on an 85.7% ratio. A complete settlement path should derive them from one dataset with explicit time periods.
+Note: I used separate demonstration values for the 472 kWh credited total and the 857.1 kWh preview at an 85.7% ratio. I plan to derive both from one settlement dataset with explicit time periods.
 
 The backend monthly-summary logic has a different scope. It aggregates recorded exports and consumer credits, considers active monthly capacities, limits the matched quantity, and stores a monthly summary. It is not identical to the standalone preview algorithm.
 
@@ -58,11 +58,11 @@ The RM202.96 solar payment splits into RM155.76 producer payout, RM42.48 grid ch
 
 The ESP32 sender calculates `power_w = voltage_v × current_a` and accumulates `energy_wh += power_w × elapsed_hours`. It sends JSON every five seconds over HTTP.
 
-Its voltage and current functions currently generate sample values. INA219 access appears as suggested replacement code in comments, so the sketch does not establish real sensor measurement.
+Note: my voltage and current functions currently generate sample values. I have outlined INA219 access in the code comments, but I still need to implement and test real sensor measurements.
 
 The backend validates nonnegative electrical fields, finds the producer profile and stores a timestamped reading. For the designated ESP demonstration device, it replaces previous meter-reading rows and also maintains a separate LCD demonstration record. This is not an append-only raw telemetry archive.
 
-The backend uses `energy_wh × 2.0` as a demonstration quantity labeled in kWh. This amplifies the small prototype for presentation. The physical unit conversion is `kWh = Wh / 1,000`.
+Note: I currently use `energy_wh × 2.0` to enlarge the small prototype’s display values. This demonstration scaling needs to be separated from measured energy; the physical conversion is `kWh = Wh / 1,000`.
 
 ## Screenshot provenance
 
@@ -77,4 +77,4 @@ Captured on 3 October 2026 from the standalone React demo used for the portfolio
 | [billing-detail.jpg](screenshots/billing-detail.jpg) | Unretouched billing crop |
 | [matching-detail.jpg](screenshots/matching-detail.jpg) | Unretouched network crop |
 
-The walkthrough combines captured UI behaviour with source inspection. It documents the API and embedded implementation without claiming hardware validation during this documentation update. The competition result and individual contribution follow the portfolio's résumé record.
+I prepared this walkthrough from the running UI and my implementation files. Note: I have documented the API and embedded design, but I have not validated the complete hardware path in this walkthrough. The competition result and my contribution describe the original competition project.
